@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'SBDataStructures' target in the 'SBDataStructures' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
