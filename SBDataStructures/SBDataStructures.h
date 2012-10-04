@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SBPriorityQueue.h"
+#import "SBBinaryHeapPriorityQueue.h"
 
 @interface SBDataStructures : NSObject
 

@@ -15,6 +15,10 @@
 		AA4068FE1615F52700577D04 /* libSBDataStructures.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E61615F52600577D04 /* libSBDataStructures.a */; };
 		AA4069041615F52700577D04 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA4069021615F52700577D04 /* InfoPlist.strings */; };
 		AA4069071615F52700577D04 /* SBDataStructuresTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069061615F52700577D04 /* SBDataStructuresTests.m */; };
+		AA4069121615F55900577D04 /* SBBinaryHeapPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */; };
+		AA4069131615F55900577D04 /* SBBinaryHeapPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */; };
+		AAE0BA11161A8A6C005EC510 /* SBPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */; };
+		AAE0BA12161A8A6C005EC510 /* SBPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,16 +34,20 @@
 /* Begin PBXFileReference section */
 		AA4068E61615F52600577D04 /* libSBDataStructures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSBDataStructures.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4068E91615F52600577D04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		AA4068ED1615F52600577D04 /* SBDataStructures-Prefix.pch */ = {isa = PBXFileReference; path = "SBDataStructures-Prefix.pch"; sourceTree = "<group>"; };
-		AA4068EE1615F52600577D04 /* SBDataStructures.h */ = {isa = PBXFileReference; path = SBDataStructures.h; sourceTree = "<group>"; };
+		AA4068ED1615F52600577D04 /* SBDataStructures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBDataStructures-Prefix.pch"; sourceTree = "<group>"; };
+		AA4068EE1615F52600577D04 /* SBDataStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBDataStructures.h; sourceTree = "<group>"; };
 		AA4068EF1615F52600577D04 /* SBDataStructures.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBDataStructures.m; sourceTree = "<group>"; };
 		AA4068F61615F52700577D04 /* SBDataStructuresTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBDataStructuresTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4068F71615F52700577D04 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		AA4068F91615F52700577D04 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		AA4069011615F52700577D04 /* SBDataStructuresTests-Info.plist */ = {isa = PBXFileReference; path = "SBDataStructuresTests-Info.plist"; sourceTree = "<group>"; };
+		AA4069011615F52700577D04 /* SBDataStructuresTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBDataStructuresTests-Info.plist"; sourceTree = "<group>"; };
 		AA4069031615F52700577D04 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AA4069051615F52700577D04 /* SBDataStructuresTests.h */ = {isa = PBXFileReference; path = SBDataStructuresTests.h; sourceTree = "<group>"; };
+		AA4069051615F52700577D04 /* SBDataStructuresTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBDataStructuresTests.h; sourceTree = "<group>"; };
 		AA4069061615F52700577D04 /* SBDataStructuresTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBDataStructuresTests.m; sourceTree = "<group>"; };
+		AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBinaryHeapPriorityQueue.h; sourceTree = "<group>"; };
+		AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBinaryHeapPriorityQueue.m; sourceTree = "<group>"; };
+		AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPriorityQueue.h; sourceTree = "<group>"; };
+		AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPriorityQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,10 @@
 			children = (
 				AA4068EE1615F52600577D04 /* SBDataStructures.h */,
 				AA4068EF1615F52600577D04 /* SBDataStructures.m */,
+				AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */,
+				AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */,
+				AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */,
+				AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */,
 				AA4068EC1615F52600577D04 /* Supporting Files */,
 			);
 			path = SBDataStructures;
@@ -138,6 +150,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4069121615F55900577D04 /* SBBinaryHeapPriorityQueue.h in Headers */,
+				AAE0BA11161A8A6C005EC510 /* SBPriorityQueue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +253,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA4068F01615F52600577D04 /* SBDataStructures.m in Sources */,
+				AA4069131615F55900577D04 /* SBBinaryHeapPriorityQueue.m in Sources */,
+				AAE0BA12161A8A6C005EC510 /* SBPriorityQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,11 +333,12 @@
 		AA40690B1615F52700577D04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				DSTROOT = /tmp/SBDataStructures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBDataStructures/SBDataStructures-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SBDataStructures;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -329,11 +346,12 @@
 		AA40690C1615F52700577D04 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				DSTROOT = /tmp/SBDataStructures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBDataStructures/SBDataStructures-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SBDataStructures;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -348,7 +366,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBDataStructures/SBDataStructures-Prefix.pch";
 				INFOPLIST_FILE = "SBDataStructuresTests/SBDataStructuresTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = SBDataStructuresTests;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -363,7 +385,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBDataStructures/SBDataStructures-Prefix.pch";
 				INFOPLIST_FILE = "SBDataStructuresTests/SBDataStructuresTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
+				PRODUCT_NAME = SBDataStructuresTests;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
@@ -387,6 +413,7 @@
 				AA40690C1615F52700577D04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AA40690D1615F52700577D04 /* Build configuration list for PBXNativeTarget "SBDataStructuresTests" */ = {
 			isa = XCConfigurationList;
@@ -395,6 +422,7 @@
 				AA40690F1615F52700577D04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

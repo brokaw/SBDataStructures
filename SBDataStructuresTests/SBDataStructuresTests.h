@@ -8,6 +8,9 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface SBDataStructuresTests : SenTestCase
+
+@interface SBDataStructuresTests : SenTestCase {
+    NSMutableArray * randomNumbers;
+}
 
 @end
