@@ -9,7 +9,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface SBDataStructuresTests : SenTestCase {
+@interface SBPriorityQueueTests : SenTestCase {
     NSMutableArray * randomNumbers;
 }
 

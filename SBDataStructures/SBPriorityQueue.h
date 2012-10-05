@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SBQueue.h"
 
 @interface SBPriorityQueue : NSObject
 
@@ -16,5 +17,6 @@
 - (void)addObject:(id<NSObject>)obj;
 - (id<NSObject>)removeHead;
 - (id)objectAtHead;
+
 
 @end

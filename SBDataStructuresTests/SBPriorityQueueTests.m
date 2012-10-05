@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SBDataStructuresTests.h"
+#import "SBPriorityQueueTests.h"
 #import "SBDataStructures.h"
 
-@implementation SBDataStructuresTests
+@implementation SBPriorityQueueTests
 
 - (void)setUp
 {

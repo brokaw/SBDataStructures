@@ -25,7 +25,7 @@ id* resized(id array[], NSUInteger newSize, NSUInteger contentSize) {
     for (int i = 0; i < contentSize + 1; i++) {
         newHeap[i] = array[i];
     }
-    array = newHeap;
+    //array = newHeap;
     return newHeap;
 }
 

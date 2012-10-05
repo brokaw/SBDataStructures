@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA003A1E161E06A30042DE8E /* SBUnionFind.h in Headers */ = {isa = PBXBuildFile; fileRef = AA003A1C161E06A30042DE8E /* SBUnionFind.h */; };
+		AA003A1F161E06A30042DE8E /* SBUnionFind.m in Sources */ = {isa = PBXBuildFile; fileRef = AA003A1D161E06A30042DE8E /* SBUnionFind.m */; };
+		AA003A22161E108D0042DE8E /* SBUnionFindTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA003A21161E108D0042DE8E /* SBUnionFindTests.m */; };
 		AA4068EA1615F52600577D04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E91615F52600577D04 /* Foundation.framework */; };
 		AA4068F01615F52600577D04 /* SBDataStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4068EF1615F52600577D04 /* SBDataStructures.m */; };
 		AA4068F81615F52700577D04 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068F71615F52700577D04 /* SenTestingKit.framework */; };
@@ -14,11 +17,10 @@
 		AA4068FB1615F52700577D04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E91615F52600577D04 /* Foundation.framework */; };
 		AA4068FE1615F52700577D04 /* libSBDataStructures.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E61615F52600577D04 /* libSBDataStructures.a */; };
 		AA4069041615F52700577D04 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA4069021615F52700577D04 /* InfoPlist.strings */; };
-		AA4069071615F52700577D04 /* SBDataStructuresTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069061615F52700577D04 /* SBDataStructuresTests.m */; };
 		AA4069121615F55900577D04 /* SBBinaryHeapPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */; };
-		AA4069131615F55900577D04 /* SBBinaryHeapPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */; };
+		AA4069131615F55900577D04 /* SBBinaryHeapPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AAE0BA11161A8A6C005EC510 /* SBPriorityQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */; };
-		AAE0BA12161A8A6C005EC510 /* SBPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */; };
+		AAE0BA12161A8A6C005EC510 /* SBPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA003A1C161E06A30042DE8E /* SBUnionFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUnionFind.h; sourceTree = "<group>"; };
+		AA003A1D161E06A30042DE8E /* SBUnionFind.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUnionFind.m; sourceTree = "<group>"; };
+		AA003A20161E108C0042DE8E /* SBUnionFindTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBUnionFindTests.h; sourceTree = "<group>"; };
+		AA003A21161E108D0042DE8E /* SBUnionFindTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUnionFindTests.m; sourceTree = "<group>"; };
 		AA4068E61615F52600577D04 /* libSBDataStructures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSBDataStructures.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4068E91615F52600577D04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AA4068ED1615F52600577D04 /* SBDataStructures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBDataStructures-Prefix.pch"; sourceTree = "<group>"; };
@@ -42,8 +48,8 @@
 		AA4068F91615F52700577D04 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AA4069011615F52700577D04 /* SBDataStructuresTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SBDataStructuresTests-Info.plist"; sourceTree = "<group>"; };
 		AA4069031615F52700577D04 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AA4069051615F52700577D04 /* SBDataStructuresTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBDataStructuresTests.h; sourceTree = "<group>"; };
-		AA4069061615F52700577D04 /* SBDataStructuresTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBDataStructuresTests.m; sourceTree = "<group>"; };
+		AA4069051615F52700577D04 /* SBPriorityQueueTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBPriorityQueueTests.h; sourceTree = "<group>"; };
+		AA4069061615F52700577D04 /* SBPriorityQueueTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBPriorityQueueTests.m; sourceTree = "<group>"; };
 		AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBinaryHeapPriorityQueue.h; sourceTree = "<group>"; };
 		AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBinaryHeapPriorityQueue.m; sourceTree = "<group>"; };
 		AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPriorityQueue.h; sourceTree = "<group>"; };
@@ -73,6 +79,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA0039BC161DD7580042DE8E /* Queues */ = {
+			isa = PBXGroup;
+			children = (
+				AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */,
+				AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */,
+				AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */,
+				AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */,
+			);
+			name = Queues;
+			sourceTree = "<group>";
+		};
 		AA4068DB1615F52500577D04 = {
 			isa = PBXGroup;
 			children = (
@@ -107,10 +124,9 @@
 			children = (
 				AA4068EE1615F52600577D04 /* SBDataStructures.h */,
 				AA4068EF1615F52600577D04 /* SBDataStructures.m */,
-				AA4069101615F55900577D04 /* SBBinaryHeapPriorityQueue.h */,
-				AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */,
-				AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */,
-				AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */,
+				AA003A1C161E06A30042DE8E /* SBUnionFind.h */,
+				AA003A1D161E06A30042DE8E /* SBUnionFind.m */,
+				AA0039BC161DD7580042DE8E /* Queues */,
 				AA4068EC1615F52600577D04 /* Supporting Files */,
 			);
 			path = SBDataStructures;
@@ -127,8 +143,10 @@
 		AA4068FF1615F52700577D04 /* SBDataStructuresTests */ = {
 			isa = PBXGroup;
 			children = (
-				AA4069051615F52700577D04 /* SBDataStructuresTests.h */,
-				AA4069061615F52700577D04 /* SBDataStructuresTests.m */,
+				AA003A20161E108C0042DE8E /* SBUnionFindTests.h */,
+				AA003A21161E108D0042DE8E /* SBUnionFindTests.m */,
+				AA4069051615F52700577D04 /* SBPriorityQueueTests.h */,
+				AA4069061615F52700577D04 /* SBPriorityQueueTests.m */,
 				AA4069001615F52700577D04 /* Supporting Files */,
 			);
 			path = SBDataStructuresTests;
@@ -152,6 +170,7 @@
 			files = (
 				AA4069121615F55900577D04 /* SBBinaryHeapPriorityQueue.h in Headers */,
 				AAE0BA11161A8A6C005EC510 /* SBPriorityQueue.h in Headers */,
+				AA003A1E161E06A30042DE8E /* SBUnionFind.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +274,7 @@
 				AA4068F01615F52600577D04 /* SBDataStructures.m in Sources */,
 				AA4069131615F55900577D04 /* SBBinaryHeapPriorityQueue.m in Sources */,
 				AAE0BA12161A8A6C005EC510 /* SBPriorityQueue.m in Sources */,
+				AA003A1F161E06A30042DE8E /* SBUnionFind.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA4069071615F52700577D04 /* SBDataStructuresTests.m in Sources */,
+				AA003A22161E108D0042DE8E /* SBUnionFindTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +314,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -318,6 +339,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -333,7 +355,6 @@
 		AA40690B1615F52700577D04 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
 				DSTROOT = /tmp/SBDataStructures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBDataStructures/SBDataStructures-Prefix.pch";
@@ -346,7 +367,6 @@
 		AA40690C1615F52700577D04 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
 				DSTROOT = /tmp/SBDataStructures.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBDataStructures/SBDataStructures-Prefix.pch";
