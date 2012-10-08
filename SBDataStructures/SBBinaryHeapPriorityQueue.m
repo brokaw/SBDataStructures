@@ -13,26 +13,9 @@
 
 - (id)initWithContent:(id)content comparator:(NSComparator)comparator;
 
-@property (readonly, retain) id content;
-@property (readwrite, assign) NSComparator comparator;
+@property (readonly, strong) id content;
+@property (readwrite, weak) NSComparator comparator;
 @end
-
-const void *fretain(CFAllocatorRef allocator, const void *ptr) {
-    return (void *)[(id<NSObject>)ptr retain];
-}
-
-void frelease(CFAllocatorRef allocator, const void *ptr) {
-    [(id<NSObject>)ptr release];
-}
-
-CFComparisonResult fcompare(const void *ptr1, const void *ptr2, void *info) {
-    SBNode *node1 = (SBNode *)ptr1;
-    SBNode *node2 = (SBNode *)ptr2;
-    NSComparator comparator = [node1 comparator];
-    return comparator(node1.content, node2.content);
-}
-
-CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
 
 @implementation SBNode
 
@@ -41,19 +24,33 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
 
 - (id)initWithContent:(id)content comparator:(NSComparator)comparator {
     if ((self = [super init])) {
-        _content = [content retain];
+        _content = content;
         _comparator = comparator;
     }
     return self;
-
+    
 }
 
-- (void)dealloc {
-    [_content release];
-    [super dealloc];
-}
 
 @end
+
+const void *fretain(CFAllocatorRef allocator, const void *ptr) {
+    return CFRetain(ptr);
+}
+
+void frelease(CFAllocatorRef allocator, const void *ptr) {
+    CFRelease(ptr);
+}
+
+CFComparisonResult fcompare(const void *ptr1, const void *ptr2, void *info) {
+    SBNode *node1 = (__bridge SBNode *)ptr1;
+    SBNode *node2 = (__bridge SBNode *)ptr2;
+    NSComparator comparator = [node1 comparator];
+    return comparator(node1.content, node2.content);
+}
+
+CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
+
 
 @interface SBBinaryHeapPriorityQueue() {
     CFBinaryHeapRef _heap;
@@ -83,26 +80,28 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
     NSAssert(self.comparator != NULL, @"Null comparator in priority queue.");
     SBNode *node = [[SBNode alloc] initWithContent:obj comparator:self.comparator];
     node.comparator = self.comparator;
-    CFBinaryHeapAddValue(_heap, (void *)node);
-    [node release];
+    CFBinaryHeapAddValue(_heap, (__bridge_retained void *)node);
 }
 
 - (id)removeHead {
-    SBNode *node = nil;
-    Boolean res = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&node);
+    CFTypeRef cfNode = NULL;
+    Boolean res = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&cfNode);
     if (res) {
-        id content = [node.content retain];
+        SBNode *node = (__bridge SBNode*)cfNode;
+        CFTypeRef content = (__bridge CFTypeRef)(node.content);
         CFBinaryHeapRemoveMinimumValue(_heap);
-        return [content autorelease];
+        return (__bridge_transfer id) content;
     } else {
         return nil;
     }
 }
 
 - (id)objectAtHead {
-    SBNode *node;
-    Boolean res = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&node);
+    //SBNode *node;
+    CFTypeRef cfNode = NULL;
+    Boolean res = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&cfNode);
     if (res) {
+        SBNode *node = (__bridge SBNode *) cfNode;
         return node.content;
     } else {
         return nil;
@@ -110,12 +109,13 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
 }
 
 - (NSArray *)allObjects {
-    id *values;
+
     CFIndex size = CFBinaryHeapGetCount(_heap);
-    values = (id *)malloc(sizeof(id) * size);
-    CFBinaryHeapGetValues(_heap, (const void **)values);
-    NSArray *objects = [[NSArray alloc] initWithObjects:values count:size];
-    return [objects autorelease];
+    CFTypeRef *cfValues = calloc(size, sizeof(CFTypeRef));    
+    CFBinaryHeapGetValues(_heap, (const void **)cfValues);
+    CFArrayRef objects = CFArrayCreate(kCFAllocatorDefault, cfValues, size, &kCFTypeArrayCallBacks);
+
+    return (__bridge_transfer NSArray *) objects;
 }
 
 
@@ -125,7 +125,6 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
 
 - (void)dealloc {
     CFRelease(_heap);
-    [super dealloc];
 }
 
 @end
