@@ -83,20 +83,27 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
     CFBinaryHeapAddValue(_heap, (__bridge_retained void *)node);
 }
 
-- (id)removeHead {
+- (id)popFirstObject {
     CFTypeRef cfNode = NULL;
-    Boolean res = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&cfNode);
-    if (res) {
+    Boolean success = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&cfNode);
+    if (success) {
         SBNode *node = (__bridge SBNode*)cfNode;
         CFTypeRef content = (__bridge CFTypeRef)(node.content);
-        CFBinaryHeapRemoveMinimumValue(_heap);
+        [self removeFirstObject];
         return (__bridge_transfer id) content;
     } else {
         return nil;
     }
 }
 
-- (id)objectAtHead {
+- (void)removeFirstObject
+{
+    CFIndex count = CFBinaryHeapGetCount(_heap);
+    NSAssert(count > 0, @"Attemt to remove from empty queue");
+    CFBinaryHeapRemoveMinimumValue(_heap);
+}
+
+- (id)firstObject {
     //SBNode *node;
     CFTypeRef cfNode = NULL;
     Boolean res = CFBinaryHeapGetMinimumIfPresent(_heap, (const void **)&cfNode);

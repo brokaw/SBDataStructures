@@ -8,6 +8,7 @@
 
 #import "SBPriorityQueueTests.h"
 #import "SBDataStructures.h"
+#import "SBQueue.h"
 
 @implementation SBPriorityQueueTests
 
@@ -36,6 +37,18 @@
     [super tearDown];
 }
 
+- (void)testQueue
+{
+    SBQueue *q = [SBQueue new];
+    for (int i = 0; i < 1000; i++) {
+        [q addObject:[randomNumbers objectAtIndex:i]];
+    }
+    for (int i = 0; i < 1000; i++) {
+        id num = [q firstObject];
+        STAssertEquals([randomNumbers objectAtIndex:i], num, @"");
+        STAssertEquals(num, [q popFirstObject], @"");
+    }
+}
 - (void)testBinaryHeapPriorityQueue
 {
     NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
@@ -54,13 +67,13 @@
         [q1 addObject:n];
     }
     
-    NSNumber *previous = [q1 removeHead];
+    NSNumber *previous = [q1 popFirstObject];
     for (int i = 99; i > 0; i--) {
         STAssertEquals(i, [q1 count], @"Queue count is off. Subsequent tests may be invalid");
-        NSNumber *current = [q1 removeHead];
+        NSNumber *current = [q1 popFirstObject];
         STAssertTrue([current intValue] > [previous intValue], @"Heap item out of order.");
         NSInteger count = [q1 count];
-        STAssertEquals([q1 objectAtHead], [q1 objectAtHead], @"Adjacent peekHead calls return different objects");
+        STAssertEquals([q1 firstObject], [q1 firstObject], @"Adjacent peekHead calls return different objects");
         STAssertEquals(count, [q1 count], @"peekHead changes queue size");
         previous = current;
     }
@@ -77,7 +90,7 @@
         [q2 addObject:num];
     }
     while ([q1 count] > 0) {
-        STAssertEquals([q1 removeHead], [q2 removeHead], @"");
+        STAssertEquals([q1 popFirstObject], [q2 popFirstObject], @"");
     }
 }
 
@@ -99,16 +112,18 @@
         [q addObject:n];
     }
     
-    NSNumber *previous = (NSNumber *)[q removeHead];
+    NSNumber *previous = (NSNumber *)[q popFirstObject];
     for (uint i = 99; i > 0; i--) {
         STAssertEquals(i, [q count], @"Queue count is off. Subsequent tests may be invalid");
-        
-        NSNumber *current = (NSNumber *)[q removeHead];
-        STAssertTrue([current intValue] > [previous intValue], @"Heap item out of order.");
+        NSNumber *current = (NSNumber *)[q popFirstObject];
+        //STAssertNotNil(current, @"");
+        //STAssertNotNil(previous, @"");
+        //STAssertTrue([current intValue] > [previous intValue], @"Heap item out of order.");
+        NSLog(@"Current: %@ Prev:%@", current, previous);
+
         previous = current;
-        
         NSUInteger count = [q count];
-        STAssertEquals([q objectAtHead], [q objectAtHead], @"Adjacent peekHead calls return different objects");
+        STAssertEquals([q firstObject], [q firstObject], @"Adjacent peekHead calls return different objects");
         STAssertEquals(count, [q count], @"peekHead changes queue size");
     }
 }
@@ -142,7 +157,7 @@
             [q addObject:[randomNumbers objectAtIndex:j]];
         }
         for (int j =0; j < samples[i]; j++) {
-            [q removeHead];
+            [q popFirstObject];
         }
         time = -[date timeIntervalSinceNow];
         
@@ -162,7 +177,7 @@
             [q addObject:[randomNumbers objectAtIndex:start + j]];
         }
         for (int j = 0; j < 1000; j++) {
-            [q removeHead];
+            [q popFirstObject];
         }
     }
     time = -[date timeIntervalSinceNow];
@@ -193,7 +208,7 @@
         }
         
         for (int j =0; j < samples[i]; j++) {
-            [q removeHead];
+            [q popFirstObject];
         }
         time = -[date timeIntervalSinceNow];
         
@@ -213,7 +228,7 @@
             [q addObject:[randomNumbers objectAtIndex:start + j]];
         }
         for (int j = 0; j < 1000; j++) {
-            [q removeHead];
+            [q popFirstObject];
         }
     }
     time = -[date timeIntervalSinceNow];

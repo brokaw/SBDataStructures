@@ -14,23 +14,21 @@
 #define RIGHT(idx) (((idx) * 2) + 1)
 #define PARENT(idx) ((idx) / 2)
 
-void swap(id __strong array[], NSUInteger idx1, NSUInteger idx2) {
+void swap(__strong id array[], NSUInteger idx1, NSUInteger idx2) {
     id tmp = array[idx1];
     array[idx1] = array[idx2];
     array[idx2] = tmp;
 }
 
-id __strong * resized(id const array[], NSUInteger newSize, NSUInteger contentSize) {
-//    id __strong *newHeap = malloc(sizeof(id) * newSize);
+__strong id * resized(id const array[], NSUInteger newSize, NSUInteger contentSize) {
     id __strong *newHeap = (id __strong *)calloc(newSize, sizeof(id));
     for (int i = 0; i < contentSize + 1; i++) {
         newHeap[i] = array[i];
     }
-    //array = newHeap;
     return newHeap;
 }
 
-void sink(id __strong array[], NSUInteger idx, NSUInteger size, NSComparator comparator) {
+void sink(__strong id array[], NSUInteger idx, NSUInteger size, NSComparator comparator) {
     NSUInteger child;
     while (LEFT(idx) <= (size)) {
         //first choose which child to compare with the parent
@@ -49,7 +47,7 @@ void sink(id __strong array[], NSUInteger idx, NSUInteger size, NSComparator com
     }
 }
 
-void swim(id __strong heap[], NSUInteger idx, NSComparator comparator) {
+void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     while (PARENT(idx) >= 1) {
         NSComparisonResult res = comparator(heap[idx], heap[PARENT(idx)]);
         if (res != NSOrderedAscending) { break; }
@@ -60,7 +58,7 @@ void swim(id __strong heap[], NSUInteger idx, NSComparator comparator) {
 }
 
 @interface SBPriorityQueue() {
-    id __strong *_heap;
+    __strong id *_heap;
     dispatch_queue_t heap_q;
 }
 @property NSUInteger arraySize;
@@ -79,7 +77,7 @@ void swim(id __strong heap[], NSUInteger idx, NSComparator comparator) {
 - (id)initWithComparator:(NSComparator)cmp {
     if ((self = [super init])) {
         NSAssert(cmp != NULL, @"Comparator must not be NULL");
-        _heap = (id __strong *)calloc(MIN_SIZE + 1, sizeof(id));
+        _heap = (__strong id *)calloc(MIN_SIZE + 1, sizeof(id));
         _heap[0] = nil;
         arraySize = MIN_SIZE;
         contentSize = 0;
@@ -94,7 +92,7 @@ void swim(id __strong heap[], NSUInteger idx, NSComparator comparator) {
     CFTypeRef cfObj = (__bridge_retained CFTypeRef)obj;
     CFRetain(cfObj);
     if (contentSize > arraySize / 2) {
-        id __strong *tmp = resized(_heap, arraySize * 2, contentSize);
+        __strong id *tmp = resized(_heap, arraySize * 2, contentSize);
         for (int i = 0; i < self.count; i++) {
             _heap[i] = nil;
         }
@@ -106,28 +104,44 @@ void swim(id __strong heap[], NSUInteger idx, NSComparator comparator) {
     swim(_heap, contentSize, comparator);
 }
 
-- (id<NSObject>)removeHead {
+- (id<NSObject>)popFirstObject {
     NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
-    
-    id<NSObject> head = _heap[1];
+    id head = _heap[1];
+//    id<NSObject> head = _heap[1];
+//    if ((contentSize < arraySize / 4) && (arraySize > MIN_SIZE)) {
+//        id __strong *tmp = resized(_heap, arraySize / 2, contentSize);
+//        free(_heap);
+//        _heap = tmp;
+//        arraySize /= 2;
+//    }
+//    _heap[1] = _heap[contentSize--];
+//    sink(_heap, 1, contentSize, comparator);
+    [self removeFirstObject];
+    return head;
+}
+
+- (id)firstObject {
+    return _heap[1];
+}
+
+- (void)removeFirstObject
+{
+    NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
+
     if ((contentSize < arraySize / 4) && (arraySize > MIN_SIZE)) {
-        id __strong *tmp = resized(_heap, arraySize / 2, contentSize);
+        __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
+        for (int i = 0; i < contentSize; i++) {
+            _heap[i] = nil;
+        }
         free(_heap);
         _heap = tmp;
         arraySize /= 2;
     }
-    _heap[1] = _heap[contentSize--];
+    _heap[1] = _heap[contentSize];
+    _heap[contentSize] = nil;
+    contentSize--;
     sink(_heap, 1, contentSize, comparator);
     
-    return head;
-}
-
-//- (id)firstObject
-//{
-//    return _heap[1];
-//}
-- (id)objectAtHead {
-    return _heap[1];
 }
 
 - (NSUInteger)count { return contentSize; }

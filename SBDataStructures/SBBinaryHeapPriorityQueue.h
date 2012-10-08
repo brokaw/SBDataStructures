@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SBBinaryHeapPriorityQueue : NSObject
-
+/** @name Initializers */
 /*! 
  Initialize a new priority queue with a comparator. Depending on the comparator,
  this will be a min priority queue or a max priority queue. All objects added to
@@ -19,15 +19,20 @@
 
 - (id)initWithComparator:(NSComparator)comparator;
 
+/** @name Accessing contents */
 /*! Returns the object at the head of the queue, or nil if the queue is empty.
  The object is left in the queue;
  */
-- (id)objectAtHead;
+- (id)firstObject;
 
 /*! Returns the object at the head of the queue, or nil if the queue is empty.
  The object is removed from the queue.
  */
-- (id)removeHead;
+- (id)popFirstObject;
+
+/*! Removes the first object in the queue. The queue must not be empty.
+ */
+- (void)removeFirstObject;
 
 /*! Add an object to the queue. All objects must support whatever comparision operation you
  give the initializer above. */
@@ -39,6 +44,6 @@
 /*! Empty the queue */
 - (void)removeAllObjects;
 
-/*! */
+/*! Return all objects sorted in order.*/
 - (NSArray *)allObjects;
 @end

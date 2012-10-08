@@ -13,11 +13,11 @@
 @property (readonly) NSUInteger count;
 
 - (id)initWithComparator:(NSComparator)cmp;
+
 - (void)addObject:(id<NSObject>)obj;
-- (id<NSObject>)removeHead;
+- (id<NSObject>)popFirstObject;
 - (id)firstObject;
-- (id)removeFirstObject;
-- (id)objectAtHead;
+- (void)removeFirstObject;
 
 
 @end
