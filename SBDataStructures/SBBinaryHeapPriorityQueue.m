@@ -31,7 +31,6 @@
     
 }
 
-
 @end
 
 const void *fretain(CFAllocatorRef allocator, const void *ptr) {
@@ -71,8 +70,10 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
     return self;
 }
 
-- (NSInteger)count {
-    return CFBinaryHeapGetCount(_heap);
+- (NSUInteger)count {
+    CFIndex c = CFBinaryHeapGetCount(_heap);
+    NSAssert(c >= 0, @"Invalid heap count: %i", c);
+    return (NSUInteger)c;
 }
 
 - (void)addObject:(id)obj {

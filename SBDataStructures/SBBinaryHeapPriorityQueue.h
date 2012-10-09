@@ -35,6 +35,9 @@
  */
 
 @interface SBBinaryHeapPriorityQueue : NSObject
+/** @name Properties */
+/** The number of objects in the queue. */
+@property (readonly) NSUInteger count;
 
 /** @name Initializing a Queue */
 
@@ -82,10 +85,6 @@
  */
 - (NSArray *)allObjects;
 
-/*! The number of objects in the queue 
- @returns The number of objects currently in the queue.
- */
-- (NSInteger)count;
 
 
 @end
