@@ -45,13 +45,16 @@
     }
     for (int i = 0; i < 1000; i++) {
         id num = [q firstObject];
-        STAssertEquals([randomNumbers objectAtIndex:i], num, @"");
-        STAssertEquals(num, [q popFirstObject], @"");
+        STAssertEquals([randomNumbers objectAtIndex:i], num, @"Object in queue should equal object %i from array (%@)", i, [randomNumbers objectAtIndex:i]);
+        id popped = [q popFirstObject];
+        STAssertEquals(num, popped, @"Peeked object %@ doesn't match popped object %@.", num, popped);
     }
 }
 - (void)testBinaryHeapPriorityQueue
 {
     NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
+        STAssertNotNil(obj1, @"Nil object in comparator");
+        STAssertNotNil(obj2, @"Nil object in comparator");
         if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
             return NSOrderedAscending;
         } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
@@ -97,6 +100,8 @@
 - (void)testPriorityQueue
 {
     SBPriorityQueue *q = [[SBPriorityQueue alloc] initWithComparator:^NSComparisonResult(id obj1, id obj2) {
+        STAssertNotNil(obj1, @"Nil object in comparator");
+        STAssertNotNil(obj2, @"Nil object in comparator");
         if ([obj1 intValue] < [obj2 intValue]) {
             return NSOrderedAscending;
         } else if ([obj1 intValue] > [obj2 intValue]) {
@@ -116,10 +121,8 @@
     for (uint i = 99; i > 0; i--) {
         STAssertEquals(i, [q count], @"Queue count is off. Subsequent tests may be invalid");
         NSNumber *current = (NSNumber *)[q popFirstObject];
-        //STAssertNotNil(current, @"");
-        //STAssertNotNil(previous, @"");
-        //STAssertTrue([current intValue] > [previous intValue], @"Heap item out of order.");
-        NSLog(@"Current: %@ Prev:%@", current, previous);
+        STAssertNotNil(current, @"Queue popped nil object");
+        STAssertTrue([current intValue] > [previous intValue], @"Heap item out of order.");
 
         previous = current;
         NSUInteger count = [q count];
@@ -130,6 +133,8 @@
 
 - (void)testPriorityQueueRunTime {
     NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
+        STAssertNotNil(obj1, @"Nil object in comparator");
+        STAssertNotNil(obj2, @"Nil object in comparator");
         if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
             return NSOrderedAscending;
         } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
@@ -139,7 +144,6 @@
         }
         
     };
-    //SBPriorityQueue *q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
     int samples[] = { 4000, 8000, 16000, 32000, 64000 };
     NSTimeInterval previousBuild = 0;
     NSTimeInterval previousPop = 0;

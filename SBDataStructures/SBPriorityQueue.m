@@ -15,13 +15,13 @@
 #define PARENT(idx) ((idx) / 2)
 
 void swap(__strong id array[], NSUInteger idx1, NSUInteger idx2) {
-    id tmp = array[idx1];
+    __strong id tmp = array[idx1];
     array[idx1] = array[idx2];
     array[idx2] = tmp;
 }
 
 __strong id * resized(id const array[], NSUInteger newSize, NSUInteger contentSize) {
-    id __strong *newHeap = (id __strong *)calloc(newSize, sizeof(id));
+    __strong id *newHeap = (__strong id *)calloc(newSize, sizeof(id));
     for (int i = 0; i < contentSize + 1; i++) {
         newHeap[i] = array[i];
     }
@@ -33,7 +33,7 @@ void sink(__strong id array[], NSUInteger idx, NSUInteger size, NSComparator com
     while (LEFT(idx) <= (size)) {
         //first choose which child to compare with the parent
         child = LEFT(idx);
-        if ((RIGHT(idx) <= size + 1) && //if there is a right child
+        if ((RIGHT(idx) <= size) && //if there is a right child
             (comparator(array[LEFT(idx)], array[RIGHT(idx)]) == NSOrderedDescending)) {
             child = RIGHT(idx); //choose the smaller of the two children.
         }
@@ -72,25 +72,25 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 @synthesize arraySize;
 @synthesize contentSize;
 
-@synthesize comparator;
+@synthesize comparator = _comparator;
 
-- (id)initWithComparator:(NSComparator)cmp {
+- (id)initWithComparator:(NSComparator)comparator {
     if ((self = [super init])) {
-        NSAssert(cmp != NULL, @"Comparator must not be NULL");
+        NSAssert(comparator != NULL, @"Comparator must not be NULL");
         _heap = (__strong id *)calloc(MIN_SIZE + 1, sizeof(id));
         _heap[0] = nil;
         arraySize = MIN_SIZE;
         contentSize = 0;
-        comparator = cmp;
+        _comparator = comparator;
         heap_q = dispatch_queue_create("com.github.brokaw.priorityqueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 
-- (void)addObject:(id<NSObject>)obj {
+- (void)addObject:(id<NSObject>)object {
     //[obj retain];
-    CFTypeRef cfObj = (__bridge_retained CFTypeRef)obj;
-    CFRetain(cfObj);
+    //CFTypeRef cfObj = (__bridge_retained CFTypeRef)object;
+    //CFRetain(cfObj);
     if (contentSize > arraySize / 2) {
         __strong id *tmp = resized(_heap, arraySize * 2, contentSize);
         for (int i = 0; i < self.count; i++) {
@@ -100,23 +100,18 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
         _heap = tmp;
         arraySize *= 2;
     }
-    _heap[++(self.contentSize)] = obj;
-    swim(_heap, contentSize, comparator);
+    //self.contentSize += 1;
+    _heap[++contentSize] = object;
+    swim(_heap, contentSize, _comparator);
 }
 
 - (id<NSObject>)popFirstObject {
     NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
     id head = _heap[1];
-//    id<NSObject> head = _heap[1];
-//    if ((contentSize < arraySize / 4) && (arraySize > MIN_SIZE)) {
-//        id __strong *tmp = resized(_heap, arraySize / 2, contentSize);
-//        free(_heap);
-//        _heap = tmp;
-//        arraySize /= 2;
-//    }
-//    _heap[1] = _heap[contentSize--];
-//    sink(_heap, 1, contentSize, comparator);
     [self removeFirstObject];
+//    if (contentSize > 41) {
+//        NSLog(@"_heap[41]: %@", (NSNumber *)_heap[41]);
+//    }
     return head;
 }
 
@@ -140,7 +135,7 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     _heap[1] = _heap[contentSize];
     _heap[contentSize] = nil;
     contentSize--;
-    sink(_heap, 1, contentSize, comparator);
+    sink(_heap, 1, contentSize, _comparator);
     
 }
 

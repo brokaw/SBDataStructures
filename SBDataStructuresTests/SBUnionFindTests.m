@@ -33,8 +33,8 @@
     for (int i = 0; i < TEST_SIZE - 1; i++) {
         [uf unionSite:i withSite:i+1];
     }
-    NSLog(@"%@", uf);
+    //NSLog(@"%@", uf);
     STAssertTrue([uf site:0 isConnectedWithSite:TEST_SIZE - 1], @"");
-    NSLog(@"Id for 0: %i", [uf idForSite:0]);
+    //NSLog(@"Id for 0: %i", [uf idForSite:0]);
 }
 @end

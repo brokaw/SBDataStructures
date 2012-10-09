@@ -112,7 +112,7 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
         return node.content;
     } else {
         return nil;
-    }    
+    }
 }
 
 - (NSArray *)allObjects {
