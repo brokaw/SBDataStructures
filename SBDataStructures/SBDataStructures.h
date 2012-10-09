@@ -6,10 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+
 #import "SBPriorityQueue.h"
 #import "SBBinaryHeapPriorityQueue.h"
+#import "SBUnionFind.h"
 
-@interface SBDataStructures : NSObject
-
-@end

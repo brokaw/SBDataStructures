@@ -14,7 +14,6 @@
 		AA211FFF162317D400587745 /* SBQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = AA211FFD162317D400587745 /* SBQueue.h */; };
 		AA212000162317D400587745 /* SBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA211FFE162317D400587745 /* SBQueue.m */; };
 		AA4068EA1615F52600577D04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E91615F52600577D04 /* Foundation.framework */; };
-		AA4068F01615F52600577D04 /* SBDataStructures.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4068EF1615F52600577D04 /* SBDataStructures.m */; };
 		AA4068F81615F52700577D04 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068F71615F52700577D04 /* SenTestingKit.framework */; };
 		AA4068FA1615F52700577D04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068F91615F52700577D04 /* UIKit.framework */; };
 		AA4068FB1615F52700577D04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E91615F52600577D04 /* Foundation.framework */; };
@@ -47,7 +46,6 @@
 		AA4068E91615F52600577D04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AA4068ED1615F52600577D04 /* SBDataStructures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBDataStructures-Prefix.pch"; sourceTree = "<group>"; };
 		AA4068EE1615F52600577D04 /* SBDataStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBDataStructures.h; sourceTree = "<group>"; };
-		AA4068EF1615F52600577D04 /* SBDataStructures.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBDataStructures.m; sourceTree = "<group>"; };
 		AA4068F61615F52700577D04 /* SBDataStructuresTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBDataStructuresTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4068F71615F52700577D04 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		AA4068F91615F52700577D04 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -130,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				AA4068EE1615F52600577D04 /* SBDataStructures.h */,
-				AA4068EF1615F52600577D04 /* SBDataStructures.m */,
 				AA003A1C161E06A30042DE8E /* SBUnionFind.h */,
 				AA003A1D161E06A30042DE8E /* SBUnionFind.m */,
 				AA0039BC161DD7580042DE8E /* Queues */,
@@ -279,7 +276,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA4068F01615F52600577D04 /* SBDataStructures.m in Sources */,
 				AA4069131615F55900577D04 /* SBBinaryHeapPriorityQueue.m in Sources */,
 				AAE0BA12161A8A6C005EC510 /* SBPriorityQueue.m in Sources */,
 				AA003A1F161E06A30042DE8E /* SBUnionFind.m in Sources */,
