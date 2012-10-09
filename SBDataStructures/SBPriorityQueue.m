@@ -8,7 +8,7 @@
 
 #import "SBPriorityQueue.h"
 
-#define MIN_SIZE 4096
+#define MIN_SIZE 1024
 
 #define LEFT(idx) ((idx) * 2)
 #define RIGHT(idx) (((idx) * 2) + 1)
@@ -31,18 +31,18 @@ __strong id * resized(id const array[], NSUInteger newSize, NSUInteger contentSi
 void sink(__strong id array[], NSUInteger idx, NSUInteger size, NSComparator comparator) {
     NSUInteger child;
     while (LEFT(idx) <= (size)) {
-        //first choose which child to compare with the parent
+        //First choose which child to compare with the parent
         child = LEFT(idx);
-        if ((RIGHT(idx) <= size) && //if there is a right child
+        if ((RIGHT(idx) <= size) && //if there is a right child...
             (comparator(array[LEFT(idx)], array[RIGHT(idx)]) == NSOrderedDescending)) {
-            child = RIGHT(idx); //choose the smaller of the two children.
+            child = RIGHT(idx); //...choose the smaller of the two children.
         }
-        //next compare the parent with the smaller of the two children
+        //Next compare the parent with the smaller of the two children.
         if (comparator(array[child], array[idx]) == NSOrderedDescending) { 
-            break; //if the parent is smaller, stop descending
+            break; //If the parent is smaller, stop descending...
         } else {
-            swap(array, child, idx); //else swap the parent and child and keep descending
-            idx = child;
+            swap(array, child, idx); //...else swap the parent and child...
+            idx = child; //...and keep descending from the point of the child
         }
     }
 }
@@ -62,8 +62,7 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     dispatch_queue_t heap_q;
 }
 @property NSUInteger arraySize;
-@property NSUInteger contentSize;
-
+@property NSUInteger contentSize; //should be guarded by the serial dispatch queue
 @property (readonly, copy) NSComparator comparator;
 
 @end
@@ -88,65 +87,75 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 }
 
 - (void)addObject:(id<NSObject>)object {
-    //[obj retain];
-    //CFTypeRef cfObj = (__bridge_retained CFTypeRef)object;
-    //CFRetain(cfObj);
-    if (contentSize > arraySize / 2) {
-        __strong id *tmp = resized(_heap, arraySize * 2, contentSize);
-        for (int i = 0; i < self.count; i++) {
-            _heap[i] = nil;
-        }
-        free(_heap);
-        _heap = tmp;
-        arraySize *= 2;
+    if (self.count > arraySize / 2) {
+        dispatch_async(heap_q, ^{
+            __strong id *tmp = resized(_heap, arraySize * 2, contentSize);
+            for (int i = 0; i < contentSize; i++) {
+                _heap[i] = nil;
+            }
+            free(_heap);
+            _heap = tmp;
+            arraySize *= 2;
+        });
     }
-    //self.contentSize += 1;
-    _heap[++contentSize] = object;
-    swim(_heap, contentSize, _comparator);
+    dispatch_async(heap_q, ^{
+        _heap[++contentSize] = object;
+        swim(_heap, contentSize, _comparator);
+    });
 }
 
 - (id<NSObject>)popFirstObject {
     NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
-    id head = _heap[1];
+    id head = [self firstObject];
     [self removeFirstObject];
-//    if (contentSize > 41) {
-//        NSLog(@"_heap[41]: %@", (NSNumber *)_heap[41]);
-//    }
     return head;
 }
 
 - (id)firstObject {
-    return _heap[1];
+    __block id obj;
+    dispatch_sync(heap_q, ^{
+        obj = _heap[1];
+    });
+    return obj;
 }
 
 - (void)removeFirstObject
 {
     NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
 
-    if ((contentSize < arraySize / 4) && (arraySize > MIN_SIZE)) {
-        __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
-        for (int i = 0; i < contentSize; i++) {
-            _heap[i] = nil;
-        }
-        free(_heap);
-        _heap = tmp;
-        arraySize /= 2;
+    if ((self.count < arraySize / 4) && (arraySize > MIN_SIZE)) {
+        dispatch_async(heap_q, ^{
+            __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
+            for (int i = 0; i < contentSize; i++) {
+                _heap[i] = nil;
+            }
+            free(_heap);
+            _heap = tmp;
+            arraySize /= 2;
+        });
     }
-    _heap[1] = _heap[contentSize];
-    _heap[contentSize] = nil;
-    contentSize--;
-    sink(_heap, 1, contentSize, _comparator);
+    dispatch_async(heap_q, ^{
+        _heap[1] = _heap[contentSize];
+        _heap[contentSize] = nil;
+        contentSize--;
+        sink(_heap, 1, contentSize, _comparator);
+    });
     
 }
 
-- (NSUInteger)count { return contentSize; }
+- (NSUInteger)count { 
+    __block NSUInteger c;
+    dispatch_sync(heap_q, ^{
+        c = contentSize;
+    });
+    return c;
+}
 
 - (void)dealloc {
-    dispatch_apply(contentSize, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(size_t idx) {
-        if (idx > 0) {
+    dispatch_apply(self.count, heap_q, ^(size_t idx) {
             _heap[idx] = nil;
-        }
     });
     free(_heap);
+    dispatch_release(heap_q);
 }
 @end

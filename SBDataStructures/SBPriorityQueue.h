@@ -21,9 +21,12 @@
  */
 
 #import <Foundation/Foundation.h>
+
 /** SBPriorityQueue is an Objective-C priority queue built using straight
- C arrays and custom heapify-ing code. It appears to be faster than SBBinaryHeapPriorityQueue
- by some small factor.
+ C arrays and custom functions for heapify-ing code.
+ 
+ The store for the queue is a standard C array which is resized when enough
+ objects are added or removed.
  */
 @interface SBPriorityQueue : NSObject
 
@@ -55,14 +58,14 @@
  */
 
 - (id<NSObject>)popFirstObject;
+
 /** Returns the object at the head of the queue, or nil if the queue is empty.
  The object is left in the queue;
  */
-
 - (id)firstObject;
-/*! Removes the first object in the queue. The queue must not be empty.
- */
 
+/** Removes the first object in the queue. The queue must not be empty.
+*/
 - (void)removeFirstObject;
 
 
