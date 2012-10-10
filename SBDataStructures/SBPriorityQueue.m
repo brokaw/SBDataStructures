@@ -87,8 +87,9 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 }
 
 - (void)addObject:(id<NSObject>)object {
-    if (self.count > arraySize / 2) {
+    if (self.count == arraySize - 1) {
         dispatch_async(heap_q, ^{
+            //NSLog(@"Count: %i Arraysize: %i", contentSize, arraySize);
             __strong id *tmp = resized(_heap, arraySize * 2, contentSize);
             for (int i = 0; i < contentSize; i++) {
                 _heap[i] = nil;
@@ -151,6 +152,14 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     return c;
 }
 
+- (void)removeAllObjects
+{
+    dispatch_apply(self.count, heap_q, ^(size_t idx) {
+        _heap[idx] = nil;
+        contentSize = 0;
+    });
+}
+
 - (void)dealloc {
     dispatch_apply(self.count, heap_q, ^(size_t idx) {
             _heap[idx] = nil;
@@ -158,4 +167,5 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     free(_heap);
     dispatch_release(heap_q);
 }
+
 @end

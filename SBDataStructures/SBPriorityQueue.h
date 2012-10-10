@@ -68,5 +68,7 @@
 */
 - (void)removeFirstObject;
 
+/** Empty the queue */
+- (void)removeAllObjects;
 
 @end
