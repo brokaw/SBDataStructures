@@ -119,11 +119,18 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
 - (NSArray *)allObjects {
 
     CFIndex size = CFBinaryHeapGetCount(_heap);
-    CFTypeRef *cfValues = calloc(size, sizeof(CFTypeRef));    
+    CFTypeRef *cfValues = malloc(size * sizeof(CFTypeRef));
     CFBinaryHeapGetValues(_heap, (const void **)cfValues);
-    CFArrayRef objects = CFArrayCreate(kCFAllocatorDefault, cfValues, size, &kCFTypeArrayCallBacks);
-
-    return (__bridge_transfer NSArray *) objects;
+    CFArrayRef nodes = CFArrayCreate(kCFAllocatorDefault, cfValues, size, &kCFTypeArrayCallBacks);
+    CFIndex count = CFArrayGetCount(nodes);
+    CFMutableArrayRef objects = CFArrayCreateMutable(kCFAllocatorDefault, count, &kCFTypeArrayCallBacks);
+    for (CFIndex i = 0; i < count; i++) {
+        SBNode *node = (__bridge_transfer SBNode *)CFArrayGetValueAtIndex(nodes, i);
+        id object = node.content;
+        CFArrayAppendValue(objects, (__bridge_retained CFTypeRef) object);
+    }
+    free(cfValues); 
+    return (__bridge_transfer NSMutableArray *) objects;
 }
 
 
