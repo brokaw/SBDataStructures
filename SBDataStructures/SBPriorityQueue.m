@@ -8,7 +8,7 @@
 
 #import "SBPriorityQueue.h"
 
-#define MIN_SIZE 1024
+#define MIN_SIZE 2
 
 #define LEFT(idx) ((idx) * 2)
 #define RIGHT(idx) (((idx) * 2) + 1)
@@ -60,16 +60,17 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 @interface SBPriorityQueue() {
     __strong id *_heap;
     dispatch_queue_t heap_q;
+    NSUInteger arraySize;
+    NSUInteger contentSize;
 }
-@property NSUInteger arraySize;
-@property NSUInteger contentSize; //should be guarded by the serial dispatch queue
+
+@property (readonly) NSUInteger size;
+
 @property (readonly, copy) NSComparator comparator;
 
 @end
 
 @implementation SBPriorityQueue
-@synthesize arraySize;
-@synthesize contentSize;
 
 @synthesize comparator = _comparator;
 
@@ -87,9 +88,8 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 }
 
 - (void)addObject:(id<NSObject>)object {
-    if (self.count == arraySize - 1) {
-        dispatch_async(heap_q, ^{
-            //NSLog(@"Count: %i Arraysize: %i", contentSize, arraySize);
+    dispatch_async(heap_q, ^{
+        if (contentSize == arraySize - 1) { //-1 because content size isn't a true array index because I ignore _heap[0]
             __strong id *tmp = resized(_heap, arraySize * 2, contentSize);
             for (int i = 0; i < contentSize; i++) {
                 _heap[i] = nil;
@@ -97,16 +97,14 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
             free(_heap);
             _heap = tmp;
             arraySize *= 2;
-        });
-    }
-    dispatch_async(heap_q, ^{
+        }
         _heap[++contentSize] = object;
         swim(_heap, contentSize, _comparator);
     });
 }
 
 - (id<NSObject>)popFirstObject {
-    NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
+    NSAssert(self.count > 0, @"Attempt to pop from an empty queue");
     id head = [self firstObject];
     [self removeFirstObject];
     return head;
@@ -122,10 +120,9 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 
 - (void)removeFirstObject
 {
-    NSAssert(contentSize > 0, @"Attempt to pop from an empty queue");
-
-    if ((self.count < arraySize / 4) && (arraySize > MIN_SIZE)) {
-        dispatch_async(heap_q, ^{
+    NSAssert(self.count > 0, @"Attempt to pop from an empty queue");
+    dispatch_async(heap_q, ^{
+        if ((contentSize < arraySize / 4) && (arraySize > MIN_SIZE)) {
             __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
             for (int i = 0; i < contentSize; i++) {
                 _heap[i] = nil;
@@ -133,14 +130,31 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
             free(_heap);
             _heap = tmp;
             arraySize /= 2;
-        });
-    }
-    dispatch_async(heap_q, ^{
+        }
         _heap[1] = _heap[contentSize];
         _heap[contentSize] = nil;
         contentSize--;
         sink(_heap, 1, contentSize, _comparator);
     });
+    
+    
+//    if ((self.count < self.size / 4) && (self.size > MIN_SIZE)) {
+//        dispatch_async(heap_q, ^{
+//            __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
+//            for (int i = 0; i < contentSize; i++) {
+//                _heap[i] = nil;
+//            }
+//            free(_heap);
+//            _heap = tmp;
+//            arraySize /= 2;
+//        });
+//    }
+//    dispatch_async(heap_q, ^{
+//        _heap[1] = _heap[contentSize];
+//        _heap[contentSize] = nil;
+//        contentSize--;
+//        sink(_heap, 1, contentSize, _comparator);
+//    });
     
 }
 
@@ -150,6 +164,14 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
         c = contentSize;
     });
     return c;
+}
+
+- (NSUInteger)size {
+    __block NSUInteger s;
+    dispatch_sync(heap_q, ^{
+        s = arraySize;
+    });
+    return s;
 }
 
 - (void)removeAllObjects
