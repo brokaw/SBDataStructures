@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'DataStructuresFramework' target in the 'DataStructuresFramework' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

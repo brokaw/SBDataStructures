@@ -87,14 +87,14 @@
         STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
     }
     
-    for (uint i = 0; i < 100; i++) {
+    for (NSUInteger i = 0; i < 100; i++) {
         NSNumber *n = [NSNumber numberWithInt:i];
         STAssertEquals(i, [q count], @"Queue count is off");
         [q addObject:n];
     }
     
     NSNumber *previous = (NSNumber *)[q popFirstObject];
-    for (uint i = 99; i > 0; i--) {
+    for (NSUInteger i = 99; i > 0; i--) {
         STAssertEquals(i, [q count], @"Queue count is off. Subsequent tests may be invalid");
         NSNumber *current = (NSNumber *)[q popFirstObject];
         STAssertNotNil(current, @"Queue popped nil object");
@@ -111,11 +111,13 @@
 
 #pragma mark Run Time Tests
 - (void)testPriorityQueueRunTime {
+    //SBPriorityQueue *q = [[SBPriorityQueue alloc]initWithComparator:kNumberComparator];
     [self runTimeForQueueType:@"SBPriorityQueue"];
 }
 - (void)testBinaryHeapPriorityQueueRunTime {
     [self runTimeForQueueType:@"SBBinaryHeapPriorityQueue"];
 }
+
 
 - (void)runTimeForQueueType:(NSString *)queueType
 {
@@ -132,14 +134,14 @@
         
     };
     
-    id q;
-    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
-        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
-    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
-        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
-    } else {
-        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
-    }
+    id q = [[NSClassFromString(queueType) alloc] initWithComparator:numberComparator];
+//    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
+//        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
+//    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
+//        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
+//    } else {
+//        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
+//    }
     
     int samples[] = { 4000, 8000, 16000, 32000, 64000 };
     NSTimeInterval previousBuild = 0;
@@ -184,14 +186,15 @@
         
     };
     
-    id q;
-    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
-        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
-    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
-        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
-    } else {
-        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
-    }
+    id q = [[NSClassFromString(queueType) alloc] initWithComparator:numberComparator];
+//
+//    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
+//        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
+//    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
+//        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
+//    } else {
+//        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
+//    }
     
     //Fill the queue with 1000 items
     for (int i = 0; i < 1000; i++) {

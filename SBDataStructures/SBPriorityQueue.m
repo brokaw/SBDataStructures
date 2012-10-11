@@ -8,7 +8,7 @@
 
 #import "SBPriorityQueue.h"
 
-#define MIN_SIZE 2
+#define MIN_SIZE 16
 
 #define LEFT(idx) ((idx) * 2)
 #define RIGHT(idx) (((idx) * 2) + 1)
@@ -64,14 +64,12 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     NSUInteger contentSize;
 }
 
-@property (readonly) NSUInteger size;
 
 @property (readonly, copy) NSComparator comparator;
 
 @end
 
 @implementation SBPriorityQueue
-
 @synthesize comparator = _comparator;
 
 - (id)initWithComparator:(NSComparator)comparator {
@@ -137,25 +135,6 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
         sink(_heap, 1, contentSize, _comparator);
     });
     
-    
-//    if ((self.count < self.size / 4) && (self.size > MIN_SIZE)) {
-//        dispatch_async(heap_q, ^{
-//            __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
-//            for (int i = 0; i < contentSize; i++) {
-//                _heap[i] = nil;
-//            }
-//            free(_heap);
-//            _heap = tmp;
-//            arraySize /= 2;
-//        });
-//    }
-//    dispatch_async(heap_q, ^{
-//        _heap[1] = _heap[contentSize];
-//        _heap[contentSize] = nil;
-//        contentSize--;
-//        sink(_heap, 1, contentSize, _comparator);
-//    });
-    
 }
 
 - (NSUInteger)count { 
@@ -166,19 +145,15 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
     return c;
 }
 
-- (NSUInteger)size {
-    __block NSUInteger s;
-    dispatch_sync(heap_q, ^{
-        s = arraySize;
-    });
-    return s;
-}
-
 - (void)removeAllObjects
 {
-    dispatch_apply(self.count, heap_q, ^(size_t idx) {
-        _heap[idx] = nil;
+    dispatch_async(heap_q, ^{
+        id __strong *tmp = resized(_heap, MIN_SIZE, 0);
+        for (int i = 0; i < contentSize; i++) {
+            _heap[i] = nil;
+        }
         contentSize = 0;
+        _heap = tmp;
     });
 }
 
