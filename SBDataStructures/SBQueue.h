@@ -21,15 +21,15 @@
  */
 
 #import <Foundation/Foundation.h>
+
 /**
  A generic queue, implemented as a singly linked list. The API is restricted,
  but most operations take place in constant time with respect to the list size.
  */
-
 @interface SBQueue : NSObject
 
 /** The number of objects currently in the queue */
-@property (readonly, assign) NSUInteger count;
+@property (readonly) NSUInteger count;
 
 /** @name Initializing a Queue */
 /**

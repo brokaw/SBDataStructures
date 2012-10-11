@@ -279,6 +279,7 @@
 				AA003A1C161E06A30042DE8E /* SBUnionFind.h */,
 				AA003A1D161E06A30042DE8E /* SBUnionFind.m */,
 				AA0039BC161DD7580042DE8E /* Queues */,
+				AAA5AB3F162715A600C09E54 /* Trees */,
 				AA4068EB1615F52600577D04 /* SBDataStructures_iOS */,
 				AAA5AB1016270C1200C09E54 /* SBDataStructures_OSX */,
 			);
@@ -292,6 +293,14 @@
 				AA4069001615F52700577D04 /* Supporting Files */,
 			);
 			name = SBDataStructures_iOS;
+			sourceTree = "<group>";
+		};
+		AAA5AB3F162715A600C09E54 /* Trees */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Trees;
+			path = ../SBDataStructures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
