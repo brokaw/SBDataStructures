@@ -87,7 +87,7 @@ CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
 
 - (NSUInteger)count {
     CFIndex c = CFBinaryHeapGetCount(_heap);
-    NSAssert(c >= 0, @"Invalid heap count: %i", c);
+    NSAssert(c >= 0, @"Invalid heap count: %ld", c);
     return (NSUInteger)c;
 }
 

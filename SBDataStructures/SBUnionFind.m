@@ -84,9 +84,9 @@
 
 - (NSString *)description {
     NSMutableString *desc = [[super description] mutableCopy];
-    [desc appendFormat:@"Site count = %i", _count];
+    [desc appendFormat:@"Site count = %lu", _count];
     for (int i = 0; i < _arraySize; i++) {
-        [desc appendFormat:@"\n%i: [id: %i, parent: %i, size: %i]", i, [self idForSite:i], _sites[i], _sizes[i]];
+        [desc appendFormat:@"\n%i: [id: %lu, parent: %lu, size: %lu]", i, [self idForSite:i], _sites[i], _sizes[i]];
     }
     return desc;
 }

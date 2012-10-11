@@ -28,6 +28,7 @@
  */
 @interface SBQueue : NSObject
 
+/** @name Properties */
 /** The number of objects currently in the queue */
 @property (readonly) NSUInteger count;
 

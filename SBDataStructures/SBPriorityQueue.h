@@ -30,6 +30,7 @@
  */
 @interface SBPriorityQueue : NSObject
 
+/** @name Properties */
 /** The number of objects in the queue */
 @property (readonly) NSUInteger count;
 

@@ -102,7 +102,7 @@
     }
     
     for (NSUInteger i = 0; i < 100; i++) {
-        NSNumber *n = [NSNumber numberWithInt:i];
+        NSNumber *n = [NSNumber numberWithUnsignedInteger:i];
         STAssertEquals(i, [q count], @"Queue count is off");
         [q addObject:n];
     }
