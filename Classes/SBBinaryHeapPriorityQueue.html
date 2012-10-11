@@ -38,6 +38,11 @@
 	
 	
 	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/count">&nbsp;&nbsp;&nbsp;&nbsp;count</option>
+	
+	
 	
 	
 	
@@ -47,8 +52,6 @@
 	<option value="//api/name/addObject:">&nbsp;&nbsp;&nbsp;&nbsp;- addObject:</option>
 	
 	<option value="//api/name/allObjects">&nbsp;&nbsp;&nbsp;&nbsp;- allObjects</option>
-	
-	<option value="//api/name/count">&nbsp;&nbsp;&nbsp;&nbsp;- count</option>
 	
 	<option value="//api/name/firstObject">&nbsp;&nbsp;&nbsp;&nbsp;- firstObject</option>
 	
@@ -76,6 +79,8 @@
 
 <li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Properties">Properties</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Initializing a Queue">Initializing a Queue</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#task_Accessing Queue Contents">Accessing Queue Contents</a></span></li>
@@ -86,6 +91,12 @@
 
 
 
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/count">count</a></span></li>
+	
+</ul></li>
+
 
 
 
@@ -95,8 +106,6 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/addObject:">addObject:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/allObjects">allObjects</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/count">count</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/firstObject">firstObject</a></span></li>
 	
@@ -163,6 +172,21 @@ be either the minimum or maximum.</p>
 					<div class="section section-tasks">
 						<a title="Tasks" name="tasks"></a>
 						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						<a title="Properties" name="task_Properties"></a>
+						<h3 class="subsubtitle task-title">Properties</h3>
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/count">&nbsp;&nbsp;count</a></code>
+		<span class="tooltip"><p>The number of objects in the queue.</p></span>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li>
+						</ul>
 						
 						
 						<a title="Initializing a Queue" name="task_Initializing a Queue"></a>
@@ -232,13 +256,6 @@ give the initializer above.</p></span>
 	</span>
 	
 	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/count">&ndash;&nbsp;count</a></code>
-		<span class="tooltip"><p>The number of objects in the queue</p></span>
-	</span>
-	
-	
 </li>
 						</ul>
 						
@@ -247,6 +264,48 @@ give the initializer above.</p></span>
 					
 					
 					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/count" title="count"></a>
+	<h3 class="subsubtitle method-title">count</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The number of objects in the queue.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (readonly) NSUInteger count</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">SBBinaryHeapPriorityQueue.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
 					
 					
 					
@@ -324,47 +383,6 @@ give the initializer above.</p>
 	<div class="method-subsection return">
 		<h4 class="method-subtitle parameter-title">Return Value</h4>
 		<p>A sorted NSArray of the queue contents.</p>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">SBBinaryHeapPriorityQueue.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/count" title="count"></a>
-	<h3 class="subsubtitle method-title">count</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>The number of objects in the queue</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (NSInteger)count</code></div>
-
-    
-	
-	
-	
-	<div class="method-subsection return">
-		<h4 class="method-subtitle parameter-title">Return Value</h4>
-		<p>The number of objects currently in the queue.</p>
 	</div>
 	
 	
@@ -599,7 +617,7 @@ The object is removed from the queue.</p>
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2012 brokaw.github.com. All rights reserved. (Last updated: 2012-10-08)</span><br />
+						<p><span class="copyright">&copy; 2012 brokaw.github.com. All rights reserved. (Last updated: 2012-10-11)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.0.5 (build 789)</a>.</span></p>
 						
