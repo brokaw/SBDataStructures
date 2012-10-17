@@ -23,18 +23,23 @@
 #import <Foundation/Foundation.h>
 
 /** SBPriorityQueue is an Objective-C priority queue built using straight
- C arrays and custom functions for heapify-ing code.
+ C arrays and custom functions for heapify-ing the objects in the queue.
  
  The store for the queue is a standard C array which is resized when enough
- objects are added or removed.
+ objects are added or removed. 
+ 
+ Iterating through an SBPriorityQueue with fast enumeration (`for (id obj in q)` syntax)
+ returns the objects in heap order, not in sorted order.
  */
-@interface SBPriorityQueue : NSObject
+@interface SBPriorityQueue : NSObject <NSFastEnumeration>
 
 /** @name Properties */
+
 /** The number of objects in the queue */
 @property (readonly) NSUInteger count;
 
 /** @name Initializing a Queue */
+
 /**
  Initialize a new priority queue with a comparator. Depending on the comparator,
  this will be a min priority queue or a max priority queue. All objects added to
@@ -47,17 +52,18 @@
  @param comparator An instance of NSComparator.
  */
 - (id)initWithComparator:(NSComparator)comparator;
+
 /** @name Accessing Queue Contents */
 
 /*! Add an object to the queue. All objects must support whatever comparision operation you
- give the initializer above.
+ give the initializer initWithComparator:.
  @param object The object to add to the queue. Must be supported by the comparator.
  */
 - (void)addObject:(id<NSObject>)object;
+
 /** Returns the first object, or nil if the queue is empty.
  The object is removed from the queue.
  */
-
 - (id<NSObject>)popFirstObject;
 
 /** Returns the object at the head of the queue, or nil if the queue is empty.
@@ -65,7 +71,8 @@
  */
 - (id)firstObject;
 
-/** Removes the first object in the queue. The queue must not be empty.
+/** Removes the first object in the queue. The queue must not be empty. If the queue is empty,
+ and exception is thrown.
 */
 - (void)removeFirstObject;
 

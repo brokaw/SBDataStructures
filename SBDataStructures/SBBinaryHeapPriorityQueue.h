@@ -26,15 +26,17 @@
  This class provides an Objective-C wrapper around CFBinaryHeap. The main benefit over using
  CFBinaryHeap directly is that you don't have to write C functions to retain, release, and 
  compare objects. Because you can define the comparator at initialization time, it is easy
- to create mutiple queues with different comparators.
+ to create mutiple queue instances with different comparators.
  
  Depending on how you have defined your comparator, the firstObject will
  be either the minimum or maximum.
  
- Method naming is designed to be congruent with methods in NSMutableArray and CFBinaryHeap.
+ Method naming is designed to be similar to methods in other Cocoa classes such as
+ NSMutableArray and CFBinaryHeap.
  */
 
 @interface SBBinaryHeapPriorityQueue : NSObject
+
 /** @name Properties */
 /** The number of objects in the queue. */
 @property (readonly) NSUInteger count;
@@ -50,7 +52,7 @@
  For a minimum priority queue, your NSComparator should return NSOrderedAscending if
  obj1 < obj2.
  
- @param comparator An instance of NSComparator.
+ @param comparator An instance of NSComparator used to order the objects in the queue.
  */
 
 - (id)initWithComparator:(NSComparator)comparator;
