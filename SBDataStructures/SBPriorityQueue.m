@@ -117,7 +117,7 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 }
 
 - (id<NSObject>)popFirstObject {
-    NSAssert(self.count > 0, @"Attempt to pop from an empty queue");
+    if (self.count == 0) return nil;
     id head = [self firstObject];
     [self removeFirstObject];
     return head;
@@ -133,8 +133,11 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 
 - (void)removeFirstObject
 {
-    NSAssert(self.count > 0, @"Attempt to pop from an empty queue");
     dispatch_async(heap_q, ^{
+        if (contentSize == 0) {
+            @throw [NSException exceptionWithName:@"Index Out of Bounds Exception" reason:@"Tried to remove an object from an empty queue." userInfo:nil];
+        }
+
         if ((contentSize < arraySize / 4) && (arraySize > MIN_SIZE)) {
             __strong id *tmp = resized(_heap, arraySize / 2, contentSize);
             for (int i = 0; i < contentSize; i++) {
@@ -171,6 +174,22 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
         _heap = tmp;
     });
 }
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained *)stackbuf count:(NSUInteger)len {
+    if (state->state == 0) {
+        __block NSUInteger count;
+        dispatch_sync(heap_q, ^{
+            state->mutationsPtr = &contentSize;
+            count = contentSize;
+            state->itemsPtr = (__unsafe_unretained id *)(void *)&_heap[1]; //ignore first item
+            state->state = 1;
+        });
+        return count;
+    } else {
+        return 0;
+    }
+}
+
 
 - (void)dealloc {
     dispatch_apply(self.count, heap_q, ^(size_t idx) {

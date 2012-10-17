@@ -22,7 +22,6 @@
 
 #import "SBPriorityQueueTests.h"
 #import "SBDataStructures.h"
-#import "SBQueue.h"
 
 @implementation SBPriorityQueueTests
 
@@ -264,4 +263,26 @@
     }
 }
 
+- (void)testEnumeration {
+    NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
+        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
+            return NSOrderedAscending;
+        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    };
+
+    SBPriorityQueue *pq = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
+    int testCount = 100;
+    for (int i = 0; i < testCount; i++) {
+        [pq addObject:[randomNumbers objectAtIndex:i]];
+    }
+    int count = 0;
+    for (NSNumber *n in pq) {
+        count++;
+    }
+    STAssertEquals(testCount, count, @"Enumeration did not return right number of objects from queue");
+}
 @end
