@@ -8,5 +8,7 @@
 	<string>SBDataStructures</string>
 	<key>--company-id</key>
 	<string>com.github.brokaw</string>
+	<key>--index-desc</key>
+	<string>README.markdown</string>
 </dict>
 </plist>
