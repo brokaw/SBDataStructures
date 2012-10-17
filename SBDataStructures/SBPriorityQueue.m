@@ -166,12 +166,15 @@ void swim(__strong id heap[], NSUInteger idx, NSComparator comparator) {
 - (void)removeAllObjects
 {
     dispatch_async(heap_q, ^{
-        id __strong *tmp = resized(_heap, MIN_SIZE, 0);
+
+        __strong id *newHeap = (__strong id *)calloc(MIN_SIZE, sizeof(id));
         for (int i = 0; i < contentSize; i++) {
             _heap[i] = nil;
         }
+        free(_heap);
         contentSize = 0;
-        _heap = tmp;
+        arraySize = MIN_SIZE;
+        _heap = newHeap;
     });
 }
 
