@@ -25,6 +25,7 @@
 
 @interface SBPriorityQueueTests : SenTestCase {
     NSMutableArray * randomNumbers;
+    NSComparator numberComparator;
 }
 
 @end

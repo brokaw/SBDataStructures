@@ -36,10 +36,15 @@
 
     }
     // Set-up code here.
-}
-
-+ (void)setUp
-{
+    numberComparator = ^NSComparisonResult(id obj1, id obj2) {
+        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
+            return NSOrderedAscending;
+        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    };
 
 }
 
@@ -78,27 +83,8 @@
 
 - (void)queueOrderTestsForQueueType:(NSString *)queueType
 {
-    NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
-        STAssertNotNil(obj1, @"Nil object in comparator");
-        STAssertNotNil(obj2, @"Nil object in comparator");
-        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
-            return NSOrderedAscending;
-        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-        
-    };
     
-    id q;
-    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
-        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
-    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
-        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
-    } else {
-        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
-    }
+    id q = [[NSClassFromString(queueType) alloc] initWithComparator:numberComparator];
     
     for (NSUInteger i = 0; i < 100; i++) {
         NSNumber *n = [NSNumber numberWithUnsignedInteger:i];
@@ -124,7 +110,6 @@
 
 #pragma mark Run Time Tests
 - (void)testPriorityQueueRunTime {
-    //SBPriorityQueue *q = [[SBPriorityQueue alloc]initWithComparator:kNumberComparator];
     [self runTimeForQueueType:@"SBPriorityQueue"];
 }
 - (void)testBinaryHeapPriorityQueueRunTime {
@@ -134,27 +119,8 @@
 
 - (void)runTimeForQueueType:(NSString *)queueType
 {
-    NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
-        STAssertNotNil(obj1, @"Nil object in comparator");
-        STAssertNotNil(obj2, @"Nil object in comparator");
-        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
-            return NSOrderedAscending;
-        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-        
-    };
     
     id q = [[NSClassFromString(queueType) alloc] initWithComparator:numberComparator];
-//    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
-//        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
-//    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
-//        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
-//    } else {
-//        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
-//    }
     
     int samples[] = { 4000, 8000, 16000, 32000, 64000 };
     NSTimeInterval previousBuild = 0;
@@ -186,28 +152,8 @@
 
 - (void)priorityQueuePushPopTimeWithQueueType:(NSString *)queueType
 {
-    NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
-        STAssertNotNil(obj1, @"Nil object in comparator");
-        STAssertNotNil(obj2, @"Nil object in comparator");
-        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
-            return NSOrderedAscending;
-        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-        
-    };
     
     id q = [[NSClassFromString(queueType) alloc] initWithComparator:numberComparator];
-//
-//    if ([queueType isEqualToString:@"SBPriorityQueue"]) {
-//        q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
-//    } else if ([queueType isEqualToString:@"SBBinaryHeapPriorityQueue"]) {
-//        q = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
-//    } else {
-//        STAssertFalse(YES,@"Attempt timing for unknown queue type: %@", queueType);
-//    }
     
     //Fill the queue with 1000 items
     for (int i = 0; i < 1000; i++) {
@@ -240,15 +186,6 @@
 }
 - (void)testAllObjects
 {
-    NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
-        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
-            return NSOrderedAscending;
-        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-    };
     SBBinaryHeapPriorityQueue *hq = [[SBBinaryHeapPriorityQueue alloc] initWithComparator:numberComparator];
     
     for (int i = 0; i < 1000; i++) {
@@ -263,16 +200,25 @@
     }
 }
 
+- (void)testRemoveAllObjects
+{
+
+    SBPriorityQueue *q = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
+    for (NSUInteger i = 0; i < 128; i++) {
+        [q addObject:[randomNumbers objectAtIndex:i]];
+    }
+    [q removeAllObjects];
+    STAssertEquals([q count], (NSUInteger)0, @"Count should equal 0 after removing all objects");
+    //STAssertThrows([q removeFirstObject], @"Should throw exception on removing object from empty queue");
+    for (NSUInteger i = 0; i < 128; i++) {
+        [q addObject:[randomNumbers objectAtIndex:i]];
+    }
+    [q removeAllObjects];
+    STAssertEquals(q.count, (NSUInteger)0, @"Count should equal 0 after removing all objects");
+    
+}
+
 - (void)testEnumeration {
-    NSComparator numberComparator = ^NSComparisonResult(id obj1, id obj2) {
-        if ([(NSNumber *)obj1 intValue] < [(NSNumber *)obj2 intValue]) {
-            return NSOrderedAscending;
-        } else if ([(NSNumber *)obj1 intValue] > [(NSNumber *)obj2 intValue]) {
-            return NSOrderedDescending;
-        } else {
-            return NSOrderedSame;
-        }
-    };
 
     SBPriorityQueue *pq = [[SBPriorityQueue alloc] initWithComparator:numberComparator];
     int testCount = 100;
