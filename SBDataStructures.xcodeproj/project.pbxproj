@@ -17,6 +17,10 @@
 		AA1E5E0E1627436C001B692B /* SBPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0BA10161A8A6C005EC510 /* SBPriorityQueue.m */; };
 		AA1E5E0F1627436F001B692B /* SBBinaryHeapPriorityQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069111615F55900577D04 /* SBBinaryHeapPriorityQueue.m */; };
 		AA211FF61622946300587745 /* SBPriorityQueueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4069061615F52700577D04 /* SBPriorityQueueTests.m */; };
+		AA3AB91E162F77E800739385 /* SBDeque.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3AB91D162F77E800739385 /* SBDeque.m */; };
+		AA3AB91F162F77E800739385 /* SBDeque.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3AB91D162F77E800739385 /* SBDeque.m */; };
+		AA3AB923162F830600739385 /* SBDequeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3AB922162F830600739385 /* SBDequeTest.m */; };
+		AA3AB924162F830600739385 /* SBDequeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3AB922162F830600739385 /* SBDequeTest.m */; };
 		AA4068EA1615F52600577D04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068E91615F52600577D04 /* Foundation.framework */; };
 		AA4068F81615F52700577D04 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068F71615F52700577D04 /* SenTestingKit.framework */; };
 		AA4068FA1615F52700577D04 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4068F91615F52700577D04 /* UIKit.framework */; };
@@ -38,19 +42,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AA3AB925162F856C00739385 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA4068DD1615F52500577D04 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAA5AB0D16270C1200C09E54;
+			remoteInfo = SBDataStructures_OSX;
+		};
 		AA4068FC1615F52700577D04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AA4068DD1615F52500577D04 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AA4068E51615F52600577D04;
 			remoteInfo = SBDataStructures;
-		};
-		AAA5AB2216270C1200C09E54 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA4068DD1615F52500577D04 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AAA5AB0D16270C1200C09E54;
-			remoteInfo = DataStructuresFramework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -61,6 +65,10 @@
 		AA003A21161E108D0042DE8E /* SBUnionFindTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBUnionFindTests.m; sourceTree = "<group>"; };
 		AA211FFD162317D400587745 /* SBQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBQueue.h; sourceTree = "<group>"; };
 		AA211FFE162317D400587745 /* SBQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBQueue.m; sourceTree = "<group>"; };
+		AA3AB91D162F77E800739385 /* SBDeque.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDeque.m; sourceTree = "<group>"; };
+		AA3AB920162F77F300739385 /* SBDeque.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBDeque.h; sourceTree = "<group>"; };
+		AA3AB921162F830600739385 /* SBDequeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDequeTest.h; sourceTree = "<group>"; };
+		AA3AB922162F830600739385 /* SBDequeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDequeTest.m; sourceTree = "<group>"; };
 		AA4068E61615F52600577D04 /* libSBDataStructures.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSBDataStructures.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4068E91615F52600577D04 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AA4068ED1615F52600577D04 /* SBDataStructures_iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBDataStructures_iOS-Prefix.pch"; sourceTree = "<group>"; };
@@ -138,6 +146,8 @@
 		AA0039BC161DD7580042DE8E /* Queues */ = {
 			isa = PBXGroup;
 			children = (
+				AA3AB920162F77F300739385 /* SBDeque.h */,
+				AA3AB91D162F77E800739385 /* SBDeque.m */,
 				AA211FFD162317D400587745 /* SBQueue.h */,
 				AA211FFE162317D400587745 /* SBQueue.m */,
 				AAE0BA0F161A8A6C005EC510 /* SBPriorityQueue.h */,
@@ -205,6 +215,8 @@
 				AA003A21161E108D0042DE8E /* SBUnionFindTests.m */,
 				AA4069051615F52700577D04 /* SBPriorityQueueTests.h */,
 				AA4069061615F52700577D04 /* SBPriorityQueueTests.m */,
+				AA3AB921162F830600739385 /* SBDequeTest.h */,
+				AA3AB922162F830600739385 /* SBDequeTest.m */,
 				AAA5AB2516270C1200C09E54 /* SBDataStructures_OSXTests */,
 				AAA5AB3E162712F400C09E54 /* SBDataStructures_iOS */,
 			);
@@ -390,7 +402,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				AAA5AB2316270C1200C09E54 /* PBXTargetDependency */,
+				AA3AB926162F856C00739385 /* PBXTargetDependency */,
 			);
 			name = SBDataStructures_OSX_Tests;
 			productName = DataStructuresFrameworkTests;
@@ -490,6 +502,7 @@
 				AA1E5E0D16274367001B692B /* SBUnionFind.m in Sources */,
 				AA1E5E0E1627436C001B692B /* SBPriorityQueue.m in Sources */,
 				AA1E5E0F1627436F001B692B /* SBBinaryHeapPriorityQueue.m in Sources */,
+				AA3AB91E162F77E800739385 /* SBDeque.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,6 +512,7 @@
 			files = (
 				AA211FF61622946300587745 /* SBPriorityQueueTests.m in Sources */,
 				AA003A22161E108D0042DE8E /* SBUnionFindTests.m in Sources */,
+				AA3AB923162F830600739385 /* SBDequeTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +525,7 @@
 				AAA5AB3716270C4100C09E54 /* SBBinaryHeapPriorityQueue.m in Sources */,
 				AAA5AB1916270C1200C09E54 /* DataStructuresFramework.m in Sources */,
 				AA1E5E07162742C5001B692B /* SBUnionFind.m in Sources */,
+				AA3AB91F162F77E800739385 /* SBDeque.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,21 +535,22 @@
 			files = (
 				AAA5AB3A16270CFA00C09E54 /* SBPriorityQueueTests.m in Sources */,
 				AAA5AB2D16270C1200C09E54 /* DataStructuresFrameworkTests.m in Sources */,
+				AA3AB924162F830600739385 /* SBDequeTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		AA3AB926162F856C00739385 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAA5AB0D16270C1200C09E54 /* SBDataStructures_OSX */;
+			targetProxy = AA3AB925162F856C00739385 /* PBXContainerItemProxy */;
+		};
 		AA4068FD1615F52700577D04 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AA4068E51615F52600577D04 /* SBDataStructures_iOS */;
 			targetProxy = AA4068FC1615F52700577D04 /* PBXContainerItemProxy */;
-		};
-		AAA5AB2316270C1200C09E54 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AAA5AB0D16270C1200C09E54 /* SBDataStructures_OSX */;
-			targetProxy = AAA5AB2216270C1200C09E54 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
