@@ -60,7 +60,7 @@ CFComparisonResult fcompare(const void *ptr1, const void *ptr2, void *info) {
     SBNode *node1 = (__bridge SBNode *)ptr1;
     SBNode *node2 = (__bridge SBNode *)ptr2;
     NSComparator comparator = [node1 comparator];
-    return comparator(node1.content, node2.content);
+    return (CFComparisonResult) comparator(node1.content, node2.content);
 }
 
 CFBinaryHeapCallBacks callbacks = { 0, fretain, frelease, NULL, fcompare };
